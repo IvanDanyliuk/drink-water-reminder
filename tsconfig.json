@@ -10,6 +10,8 @@
   },
   "include": [
     "**/*.ts",
-    "**/*.tsx"
-, "lib/appwrite.js"  ]
+    "**/*.tsx",
+    ".expo/types/**/*.ts",
+    "expo-env.d.ts"
+  ]
 }
