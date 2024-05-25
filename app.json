@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "react-native-course",
-    "slug": "react-native-course",
+    "name": "Drink Water Reminder",
+    "slug": "drink-water-reminder",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
