@@ -1,10 +1,18 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import { StyleSheet, Platform, View, Text, StatusBar, ScrollView, SafeAreaView } from 'react-native';
+import React from 'react';
+import LayoutContainer from '@/components/LayoutContainer';
 
 export default function StatisticsScreen() {
   return (
-    <View>
-      <Text>statistics</Text>
-    </View>
+    <LayoutContainer>
+      <View>
+        <Text>Statistics</Text>
+      </View>
+    </LayoutContainer>
   )
 };
+
+
+const styles = StyleSheet.create({
+  
+});
