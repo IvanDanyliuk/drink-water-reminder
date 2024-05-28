@@ -8,7 +8,7 @@ import TabIcon from '@/components/TabIcon';
 export default function TabLayout() {
   useEffect(() => {
     StatusBar.setBackgroundColor(colors.secondary);
-    StatusBar.setBarStyle('dark-content')
+    StatusBar.setBarStyle('dark-content');
   }, []);
 
   return (

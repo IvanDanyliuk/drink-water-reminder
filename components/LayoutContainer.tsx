@@ -1,7 +1,8 @@
-import { StyleSheet, Platform, StatusBar, ScrollView, SafeAreaView } from 'react-native';
-import React, { ReactNode } from 'react';
+import { StyleSheet, Platform, StatusBar, ScrollView, SafeAreaView, View, Text } from 'react-native';
+import React, { ReactNode, useState, useEffect } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
 import { colors } from '@/constants';
+import { getCurrentDate } from '@/lib/helpers/helpers';
 
 
 interface ILayoutContainer {
@@ -10,12 +11,37 @@ interface ILayoutContainer {
 
 
 const LayoutContainer: React.FC<ILayoutContainer> = ({ children }) => {
+  const [currentDate, setCurrentDate] = useState<string>('');
+
+  useEffect(() => {
+    const date = getCurrentDate();
+    setCurrentDate(date);
+  }, []);
+  
   return (
     <SafeAreaView style={styles.AndroidSafeAreaView}>
       <LinearGradient 
         colors={[colors.secondary, colors.primary]} 
         style={styles.gradient}
       >
+        <View style={styles.info}>
+          <View>
+            <Text style={[styles.infoText, styles.topText]}>
+              {currentDate}
+            </Text>
+            <Text style={[styles.infoText, styles.bottomText]}>
+              Today
+            </Text>
+          </View>
+          <View>
+            <Text style={[styles.infoText, styles.topText]}>
+              Notification
+            </Text>
+            <Text style={[styles.infoText, styles.bottomText]}>
+              Next Time
+            </Text>
+          </View>
+        </View>
         <ScrollView style={styles.container}>
           {children}
         </ScrollView>
@@ -33,6 +59,8 @@ const styles = StyleSheet.create({
     flex: 1
   },
   container: {
+    paddingTop: 10,
+    paddingBottom: 10,
     width: '100%',
     height: '100%',
     flex: 1
@@ -43,4 +71,20 @@ const styles = StyleSheet.create({
     padding: 10,
     flex: 1
   },
+  info: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  infoText: {
+    color: colors.white,
+  },
+  topText: {
+    fontFamily: 'MontserratMedium',
+    fontSize: 12,
+  },
+  bottomText: {
+    fontFamily: 'MontserratBold',
+    fontSize: 16,
+  }
 });

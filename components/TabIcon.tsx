@@ -17,7 +17,7 @@ const TabIcon: React.FC<ITabIcon> = ({ image, label, focused, color }) => {
         resizeMode='contain' 
         style={{ width: 20, height: 20 }} 
       />
-      <Text style={{ color, fontSize: 10 }}>
+      <Text style={{ color, fontSize: 10, fontFamily: focused ? 'MontserratBold' : 'MontserratMedium' }}>
         {label}
       </Text>
     </View>
@@ -35,4 +35,4 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 1
   }
-})
+});
