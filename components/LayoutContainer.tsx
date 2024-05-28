@@ -42,7 +42,10 @@ const LayoutContainer: React.FC<ILayoutContainer> = ({ children }) => {
             </Text>
           </View>
         </View>
-        <ScrollView style={styles.container}>
+        <ScrollView 
+          style={styles.content} 
+          contentContainerStyle={{ position: 'relative', flexGrow: 1, minHeight: 'auto', display: 'flex', gap: 10 }}
+        >
           {children}
         </ScrollView>
       </LinearGradient>
@@ -58,18 +61,15 @@ const styles = StyleSheet.create({
     paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
     flex: 1
   },
-  container: {
+  content: {
     paddingTop: 10,
-    paddingBottom: 10,
     width: '100%',
-    height: '100%',
-    flex: 1
   },
   gradient: {
     width: '100%',
     height: '100%',
     padding: 10,
-    flex: 1
+    flex: 1,
   },
   info: {
     display: 'flex',
