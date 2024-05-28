@@ -86,5 +86,5 @@ const styles = StyleSheet.create({
   bottomText: {
     fontFamily: 'MontserratBold',
     fontSize: 16,
-  }
+  },
 });
