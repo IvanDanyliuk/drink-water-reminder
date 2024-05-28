@@ -1,59 +1,78 @@
 import { Tabs } from 'expo-router';
 import React, { useEffect } from 'react';
-import { StyleSheet, View, StatusBar } from 'react-native';
+import { StatusBar } from 'react-native';
+import { colors, icons } from '../../constants';
+import TabIcon from '@/components/TabIcon';
+
 
 export default function TabLayout() {
   useEffect(() => {
-    StatusBar.setBackgroundColor('#5DD8FF');
+    StatusBar.setBackgroundColor(colors.secondary);
     StatusBar.setBarStyle('dark-content')
   }, []);
 
   return (
-    <Tabs>
+    <Tabs screenOptions={{
+      tabBarShowLabel: false,
+      tabBarActiveTintColor: colors.primary,
+      tabBarInactiveTintColor: colors.grayDark,
+    }}>
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Home',
           headerShown: false,
-          // tabBarIcon: ({ color, focused }) => (
-          //   <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} />
-          // ),
+          tabBarIcon: ({ color, focused }) => (
+            <TabIcon 
+              image={focused ? icons.homeActive : icons.home} 
+              label='Home' 
+              focused={focused} 
+              color={color}
+            />
+          ),
         }}
       />
       <Tabs.Screen
         name="statistics"
         options={{
-          title: 'Statistics',
           headerShown: false,
-          // tabBarIcon: ({ color, focused }) => (
-          //   <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
-          // ),
+          tabBarIcon: ({ color, focused }) => (
+            <TabIcon 
+              image={focused ? icons.statisticsActive : icons.statistics} 
+              label='Statistics' 
+              focused={focused} 
+              color={color}
+            />
+          ),
         }}
       />
       <Tabs.Screen
         name="profile"
         options={{
-          title: 'Profile',
           headerShown: false,
-          // tabBarIcon: ({ color, focused }) => (
-          //   <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
-          // ),
+          tabBarIcon: ({ color, focused }) => (
+            <TabIcon 
+              image={focused ? icons.profileActive : icons.profile} 
+              label='Profile' 
+              focused={focused} 
+              color={color}
+            />
+          ),
         }}
       />
       <Tabs.Screen 
         name='settings'
         options={{
-          title: 'Settings',
           headerShown: false,
+          tabBarIcon: ({ color, focused }) => (
+            <TabIcon 
+              image={focused ? icons.settingsActive : icons.settings} 
+              label='Settings' 
+              focused={focused} 
+              color={color}
+            />
+          ),
         }}
       />
     </Tabs>
   );
-}
-
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#e58484'
-  }
-})
+};

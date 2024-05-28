@@ -1,16 +1,21 @@
 import { StyleSheet, Platform, StatusBar, ScrollView, SafeAreaView } from 'react-native';
 import React, { ReactNode } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
+import { colors } from '@/constants';
 
 
 interface ILayoutContainer {
   children: ReactNode;
 }
 
+
 const LayoutContainer: React.FC<ILayoutContainer> = ({ children }) => {
   return (
     <SafeAreaView style={styles.AndroidSafeAreaView}>
-      <LinearGradient colors={['#5DD8FF', '#0176E1']} style={styles.gradient}>
+      <LinearGradient 
+        colors={[colors.secondary, colors.primary]} 
+        style={styles.gradient}
+      >
         <ScrollView style={styles.container}>
           {children}
         </ScrollView>
@@ -37,5 +42,5 @@ const styles = StyleSheet.create({
     height: '100%',
     padding: 10,
     flex: 1
-  }
+  },
 });
