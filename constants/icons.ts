@@ -6,6 +6,8 @@ const profile = require('../assets/images/user.png');
 const profileActive = require('../assets/images/user-active.png');
 const settings = require('../assets/images/settings.png');
 const settingsActive = require('../assets/images/settings-active.png');
+const close = require('../assets/images/close.png');
+const plus = require('../assets/images/plus.png');
 
 export default {
   home,
@@ -15,5 +17,7 @@ export default {
   profile,
   profileActive,
   settings,
-  settingsActive
+  settingsActive,
+  close,
+  plus,
 };

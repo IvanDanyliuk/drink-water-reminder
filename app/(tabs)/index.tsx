@@ -4,6 +4,7 @@ import { BlurView } from 'expo-blur';
 import { AnimatedCircularProgress } from 'react-native-circular-progress'
 import LayoutContainer from '@/components/LayoutContainer';
 import { colors } from '@/constants';
+import AddActivity from '@/components/AddActivity';
 
 
 interface IProgress {
@@ -62,6 +63,7 @@ export default function HomeScreen() {
               )}
             />
           </View>
+          <AddActivity />
         </BlurView>
       </View>
       <View style={[styles.section, styles.intakeInfo]}>
@@ -89,7 +91,8 @@ const styles = StyleSheet.create({
     padding: 10,
     height: '100%',
     display: 'flex',
-    justifyContent: 'center',
+    justifyContent: 'space-around',
+    alignItems: 'center',
     gap: 16
   },
   greeting: {
