@@ -1,9 +1,11 @@
-import { View, Modal, Pressable, StyleSheet, Image } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import { View, Modal, Pressable, StyleSheet, Image, Text } from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
 import { BlurView } from 'expo-blur';
 import { LinearGradient } from 'expo-linear-gradient';
 import Animated, { useAnimatedStyle, useSharedValue, withDelay, withRepeat, withTiming, interpolate } from 'react-native-reanimated';
-import { colors, icons } from '@/constants';
+
+import { colors, icons, beverages } from '@/constants';
+import CTACarousel from './CTACarousel/CTACarousel';
 
 
 interface IRing {
@@ -65,6 +67,7 @@ const AddActivity = () => {
               <Pressable onPress={handleVisibilityMode} style={styles.closeButton}>
                 <Image source={icons.close} style={styles.closeIcon} />
               </Pressable>
+              <CTACarousel />
             </BlurView>
           </View>
         </View>
@@ -76,9 +79,6 @@ const AddActivity = () => {
           </LinearGradient>
         </Pressable>
         <Ring delay={0} />
-        <Ring delay={1000} />
-        <Ring delay={2000} />
-        <Ring delay={3000} />
       </View>
     </View>
   );
