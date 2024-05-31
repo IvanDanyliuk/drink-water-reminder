@@ -8,6 +8,9 @@ const settings = require('../assets/images/settings.png');
 const settingsActive = require('../assets/images/settings-active.png');
 const close = require('../assets/images/close.png');
 const plus = require('../assets/images/plus.png');
+const check = require('../assets/images/check.png');
+const controlsPlus = require('../assets/images/controls-plus.png');
+const controlsMinus = require('../assets/images/controls-minus.png');
 
 export default {
   home,
@@ -20,4 +23,7 @@ export default {
   settingsActive,
   close,
   plus,
+  check,
+  controlsPlus,
+  controlsMinus,
 };

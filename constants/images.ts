@@ -11,6 +11,13 @@ const beer = require('../assets/images/beer.png');
 const energyDrink = require('../assets/images/supplement.png');
 const soda = require('../assets/images/bottle.png');
 
+const smallCup = require('../assets/images/small-cup.png');
+const mediumCup = require('../assets/images/medium-cup.png');
+const largeCup = require('../assets/images/big-cup.png');
+const extraLargeCup = require('../assets/images/large-cup.png');
+
+
+
 export default {
   water,
   tea,
@@ -24,4 +31,8 @@ export default {
   beer,
   energyDrink,
   soda,
+  smallCup,
+  mediumCup,
+  largeCup,
+  extraLargeCup,
 };
