@@ -110,8 +110,8 @@ const AddActivity = () => {
               <Pressable onPress={handleVisibilityMode} style={styles.closeButton}>
                 <Image source={icons.close} style={styles.closeIcon} />
               </Pressable>
-              <View style={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 10 }}>
-                <Text style={{ fontFamily: 'MontserratSemibold', fontSize: 14, textAlign: 'center', color: colors.primary }}>
+              <View style={styles.contentContainer}>
+                <Text style={styles.contentSectionHeading}>
                   What are you goind to drink?
                 </Text>
                 <FlatList 
@@ -119,25 +119,25 @@ const AddActivity = () => {
                   renderItem={({ item }) => (
                     <Pressable 
                       key={item.id} 
-                      style={{ position: 'relative', padding: 10, width: 70, height: 100, justifyContent: 'center', alignItems: 'center', gap: 7 }}
+                      style={styles.listItem}
                       onPress={() => selectBeverage(item.id)}
                     >
                       {liquidConsumed.beverageId === item.id && (
-                        <View style={{ position: 'absolute', top: 5, right: 5, width: 20, height: 20, justifyContent: 'center', alignItems: 'center', borderRadius: 10, backgroundColor: colors.secondary, zIndex: 10 }}>
-                          <Image source={icons.check} style={{ width: 10, height: 10 }} />
+                        <View style={styles.checkedIndicator}>
+                          <Image source={icons.check} style={styles.checkedIndicatorIcon} />
                         </View>
                       )}
                       <Image source={item.image} style={{ width: 30, height: 30 }} />
-                      <Text style={{ fontSize: 12, fontFamily: 'MontserratMedium', textAlign: 'center' }}>
+                      <Text style={styles.listItemText}>
                         {item.name}
                       </Text>
                     </Pressable>
                   )}
                   horizontal
-                  style={{ width: '100%', height: 100, overflow: 'hidden' }}
+                  style={styles.list}
                   initialScrollIndex={0}
                 />
-                <Text style={{ fontFamily: 'MontserratSemibold', fontSize: 14, textAlign: 'center', color: colors.primary }}>
+                <Text style={styles.contentSectionHeading}>
                   Select the capacity
                 </Text>
                 <FlatList 
@@ -145,44 +145,45 @@ const AddActivity = () => {
                   renderItem={({ item }) => (
                     <Pressable 
                       key={item.id} 
-                      style={{ position: 'relative', padding: 10, width: 70, maxHeight: 100, display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 7 }}
+                      style={styles.listItem}
                       onPress={() => selectVolume(item.capacity)}
                     >
                       {liquidConsumed.volume === item.capacity && (
-                        <View style={{ position: 'absolute', top: 5, right: 5, width: 20, height: 20, justifyContent: 'center', alignItems: 'center', borderRadius: 10, backgroundColor: colors.secondary, zIndex: 10 }}>
-                          <Image source={icons.check} style={{ width: 10, height: 10 }} />
+                        <View style={styles.checkedIndicator}>
+                          <Image source={icons.check} style={styles.checkedIndicatorIcon} />
                         </View>
                       )}
-                      <View style={{ width: 50, height: 50, borderRadius: 25, justifyContent: 'center', alignItems: 'center', backgroundColor: colors.primary }}>
+                      <View style={styles.listItemImageWrapper}>
                         <Image source={item.image} style={{ width: 26, height: 26 }} />
                       </View>
-                      <Text style={{ fontSize: 12, fontFamily: 'MontserratMedium', textAlign: 'center' }}>
+                      <Text style={styles.listItemText}>
                         {item.capacity}
                       </Text>
                     </Pressable>
                   )}
                   horizontal
-                  style={{ width: '100%', overflow: 'hidden', }}
+                  style={styles.list}
                   initialScrollIndex={0}
+                  contentContainerStyle={{ width: '100%', justifyContent: 'center' }}
                 />
-                <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: 5 }}>
+                <View style={styles.controlsContainer}>
                   <Pressable onPress={decreaseVolume}>
-                    <Image source={icons.controlsMinus} style={{ width: 55, height: 55 }} />
+                    <Image source={icons.controlsMinus} style={styles.controlButtonIcon} />
                   </Pressable>
                   <TextInput 
                     value={String(liquidConsumed.volume)} 
                     keyboardType='numeric' 
                     onChange={(value) => handleVolumeChange(+value)} 
-                    style={{ width: 100, textAlign: 'center', fontSize: 20, fontFamily: 'MontserratSemibold' }} 
+                    style={styles.textField} 
                   />
                   <Pressable onPress={increaseVolume}>
-                    <Image source={icons.controlsPlus} style={{ width: 55, height: 55 }} />
+                    <Image source={icons.controlsPlus} style={styles.controlButtonIcon} />
                   </Pressable>
                 </View>
               </View>
-              <Pressable onPress={submitActivityForm} style={{ width: 170, overflow: 'hidden', borderRadius: 10 }}>
-                <LinearGradient colors={['#5DD8FF', '#0176E1']} style={{ paddingHorizontal: 20, paddingVertical: 16 }}>
-                  <Text style={{ fontFamily: 'MontserratSemibold', fontSize: 20, textAlign: 'center', color: colors.white }}>Add</Text>
+              <Pressable onPress={submitActivityForm} style={styles.submitButton}>
+                <LinearGradient colors={['#5DD8FF', '#0176E1']} style={styles.submitButtonBg}>
+                  <Text style={styles.submitButtonText}>Add</Text>
                 </LinearGradient>
               </Pressable>
             </BlurView>
@@ -248,7 +249,93 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     justifyContent: 'space-between',
     alignItems: 'center',
-    // gap: 30,
+  },
+  contentContainer: { 
+    width: '100%', 
+    justifyContent: 'center', 
+    alignItems: 'center', 
+    gap: 10 
+  },
+  contentSectionHeading: { 
+    fontFamily: 'MontserratSemibold', 
+    fontSize: 14, 
+    textAlign: 'center', 
+    color: colors.primary 
+  },
+  list: { 
+    width: '100%', 
+    height: 100, 
+    overflow: 'hidden' 
+  },
+  listItem: { 
+    position: 'relative', 
+    padding: 10, 
+    width: 70, 
+    maxHeight: 100, 
+    display: 'flex', 
+    justifyContent: 'center', 
+    alignItems: 'center', 
+    gap: 7 
+  },
+  checkedIndicator: { 
+    position: 'absolute', 
+    top: 5, 
+    right: 5, 
+    width: 20, 
+    height: 20, 
+    justifyContent: 'center', 
+    alignItems: 'center', 
+    borderRadius: 10, 
+    backgroundColor: colors.secondary, 
+    zIndex: 10 
+  },
+  checkedIndicatorIcon: { 
+    width: 10, 
+    height: 10 
+  },
+  listItemText: { 
+    fontSize: 12, 
+    fontFamily: 'MontserratMedium', 
+    textAlign: 'center' 
+  },
+  listItemImageWrapper: { 
+    width: 50, 
+    height: 50, 
+    borderRadius: 25, 
+    justifyContent: 'center', 
+    alignItems: 'center', 
+    backgroundColor: colors.primary 
+  },
+  controlsContainer: { 
+    flexDirection: 'row', 
+    justifyContent: 'center', 
+    alignItems: 'center', 
+    gap: 5 
+  },
+  controlButtonIcon: { 
+    width: 55, 
+    height: 55 
+  },
+  textField: { 
+    width: 100, 
+    textAlign: 'center', 
+    fontSize: 20, 
+    fontFamily: 'MontserratSemibold' 
+  },
+  submitButton: { 
+    width: 170, 
+    overflow: 'hidden', 
+    borderRadius: 10 
+  },
+  submitButtonBg: { 
+    paddingHorizontal: 20, 
+    paddingVertical: 16 
+  },
+  submitButtonText: { 
+    fontFamily: 'MontserratSemibold', 
+    fontSize: 20, 
+    textAlign: 'center', 
+    color: colors.white 
   },
   closeButton: {
     position: 'absolute',
