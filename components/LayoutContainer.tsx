@@ -59,10 +59,10 @@ export default LayoutContainer;
 const styles = StyleSheet.create({
   AndroidSafeAreaView: {
     paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
-    flex: 1
+    flex: 1,
   },
   content: {
-    paddingTop: 10,
+    marginTop: 10,
     width: '100%',
   },
   gradient: {

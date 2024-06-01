@@ -1,9 +1,8 @@
-import { View, Modal, Pressable, StyleSheet, Image, Text, FlatList, TextInput, Alert } from 'react-native';
+import { View, Modal, Pressable, StyleSheet, Image, Text, FlatList, TextInput, Alert, useWindowDimensions } from 'react-native';
 import React, { useEffect, useState } from 'react';
-import { BlurView } from 'expo-blur';
 import { LinearGradient } from 'expo-linear-gradient';
 import Animated, { useAnimatedStyle, useSharedValue, withDelay, withRepeat, withTiming, interpolate } from 'react-native-reanimated';
-import { colors, icons, beverages, liquidContainers, images } from '@/constants';
+import { colors, icons, beverages, liquidContainers } from '@/constants';
 
 
 interface IRing {
@@ -45,6 +44,7 @@ const Ring: React.FC<IRing> = ({ delay }) => {
 
 
 const AddActivity = () => {
+  const { width, height } = useWindowDimensions();
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const [liquidConsumed, setLiquidConsumed] = useState<any>({
     beverageId: beverages[0].id,
@@ -92,8 +92,7 @@ const AddActivity = () => {
 
   const submitActivityForm = () => {
     //push liquidConsumed variable to state
-    Alert.alert(`BeverageId: ${liquidConsumed.beverageId}, 
-    Volume: ${liquidConsumed.volume}`)
+    Alert.alert(`Width: ${width}, Height: ${height}`)
   };
 
   return (
@@ -106,87 +105,85 @@ const AddActivity = () => {
         <View style={styles.container}>
           <Pressable onPress={handleVisibilityMode} style={styles.drawer} />
           <View style={styles.modalBody}>
-            <BlurView intensity={220} style={styles.blur}>
-              <Pressable onPress={handleVisibilityMode} style={styles.closeButton}>
-                <Image source={icons.close} style={styles.closeIcon} />
-              </Pressable>
-              <View style={styles.contentContainer}>
-                <Text style={styles.contentSectionHeading}>
-                  What are you goind to drink?
-                </Text>
-                <FlatList 
-                  data={beverages}
-                  renderItem={({ item }) => (
-                    <Pressable 
-                      key={item.id} 
-                      style={styles.listItem}
-                      onPress={() => selectBeverage(item.id)}
-                    >
-                      {liquidConsumed.beverageId === item.id && (
-                        <View style={styles.checkedIndicator}>
-                          <Image source={icons.check} style={styles.checkedIndicatorIcon} />
-                        </View>
-                      )}
-                      <Image source={item.image} style={{ width: 30, height: 30 }} />
-                      <Text style={styles.listItemText}>
-                        {item.name}
-                      </Text>
-                    </Pressable>
-                  )}
-                  horizontal
-                  style={styles.list}
-                  initialScrollIndex={0}
-                />
-                <Text style={styles.contentSectionHeading}>
-                  Select the capacity
-                </Text>
-                <FlatList 
-                  data={liquidContainers}
-                  renderItem={({ item }) => (
-                    <Pressable 
-                      key={item.id} 
-                      style={styles.listItem}
-                      onPress={() => selectVolume(item.capacity)}
-                    >
-                      {liquidConsumed.volume === item.capacity && (
-                        <View style={styles.checkedIndicator}>
-                          <Image source={icons.check} style={styles.checkedIndicatorIcon} />
-                        </View>
-                      )}
-                      <View style={styles.listItemImageWrapper}>
-                        <Image source={item.image} style={{ width: 26, height: 26 }} />
+            <Pressable onPress={handleVisibilityMode} style={styles.closeButton}>
+              <Image source={icons.close} style={styles.closeIcon} />
+            </Pressable>
+            <View style={styles.contentContainer}>
+              <Text style={styles.contentSectionHeading}>
+                What are you goind to drink?
+              </Text>
+              <FlatList 
+                data={beverages}
+                renderItem={({ item }) => (
+                  <Pressable 
+                    key={item.id} 
+                    style={styles.listItem}
+                    onPress={() => selectBeverage(item.id)}
+                  >
+                    {liquidConsumed.beverageId === item.id && (
+                      <View style={styles.checkedIndicator}>
+                        <Image source={icons.check} style={styles.checkedIndicatorIcon} />
                       </View>
-                      <Text style={styles.listItemText}>
-                        {item.capacity}
-                      </Text>
-                    </Pressable>
-                  )}
-                  horizontal
-                  style={styles.list}
-                  initialScrollIndex={0}
-                  contentContainerStyle={{ width: '100%', justifyContent: 'center' }}
+                    )}
+                    <Image source={item.image} style={{ width: 30, height: 30 }} />
+                    <Text style={styles.listItemText}>
+                      {item.name}
+                    </Text>
+                  </Pressable>
+                )}
+                horizontal
+                style={styles.list}
+                initialScrollIndex={0}
+              />
+              <Text style={styles.contentSectionHeading}>
+                Select the capacity
+              </Text>
+              <FlatList 
+                data={liquidContainers}
+                renderItem={({ item }) => (
+                  <Pressable 
+                    key={item.id} 
+                    style={styles.listItem}
+                    onPress={() => selectVolume(item.capacity)}
+                  >
+                    {liquidConsumed.volume === item.capacity && (
+                      <View style={styles.checkedIndicator}>
+                        <Image source={icons.check} style={styles.checkedIndicatorIcon} />
+                      </View>
+                    )}
+                    <View style={styles.listItemImageWrapper}>
+                      <Image source={item.image} style={{ width: 26, height: 26 }} />
+                    </View>
+                    <Text style={styles.listItemText}>
+                      {item.capacity}
+                    </Text>
+                  </Pressable>
+                )}
+                horizontal
+                style={styles.list}
+                initialScrollIndex={0}
+                contentContainerStyle={{ width: '100%', justifyContent: 'center' }}
+              />
+              <View style={styles.controlsContainer}>
+                <Pressable onPress={decreaseVolume}>
+                  <Image source={icons.controlsMinus} style={styles.controlButtonIcon} />
+                </Pressable>
+                <TextInput 
+                  value={String(liquidConsumed.volume)} 
+                  keyboardType='numeric' 
+                  onChange={(value) => handleVolumeChange(+value)} 
+                  style={styles.textField} 
                 />
-                <View style={styles.controlsContainer}>
-                  <Pressable onPress={decreaseVolume}>
-                    <Image source={icons.controlsMinus} style={styles.controlButtonIcon} />
-                  </Pressable>
-                  <TextInput 
-                    value={String(liquidConsumed.volume)} 
-                    keyboardType='numeric' 
-                    onChange={(value) => handleVolumeChange(+value)} 
-                    style={styles.textField} 
-                  />
-                  <Pressable onPress={increaseVolume}>
-                    <Image source={icons.controlsPlus} style={styles.controlButtonIcon} />
-                  </Pressable>
-                </View>
+                <Pressable onPress={increaseVolume}>
+                  <Image source={icons.controlsPlus} style={styles.controlButtonIcon} />
+                </Pressable>
               </View>
-              <Pressable onPress={submitActivityForm} style={styles.submitButton}>
-                <LinearGradient colors={['#5DD8FF', '#0176E1']} style={styles.submitButtonBg}>
-                  <Text style={styles.submitButtonText}>Add</Text>
-                </LinearGradient>
-              </Pressable>
-            </BlurView>
+            </View>
+            <Pressable onPress={submitActivityForm} style={styles.submitButton}>
+              <LinearGradient colors={['#5DD8FF', '#0176E1']} style={styles.submitButtonBg}>
+                <Text style={styles.submitButtonText}>Add</Text>
+              </LinearGradient>
+            </Pressable>
           </View>
         </View>
       </Modal>
@@ -240,6 +237,13 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 10,
     overflow: 'hidden',
     height: 500,
+    position: 'relative',
+    paddingTop: 46,
+    paddingBottom: 20,
+    paddingHorizontal: 10,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    backgroundColor: colors.white
   },
   blur: {
     position: 'relative',

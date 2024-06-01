@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, Dimensions } from 'react-native';
+import { StyleSheet, View, Text, Dimensions, PixelRatio } from 'react-native';
 import { useState } from 'react';
 import { BlurView } from 'expo-blur';
 import { AnimatedCircularProgress } from 'react-native-circular-progress'
@@ -41,7 +41,7 @@ export default function HomeScreen() {
   return (
     <LayoutContainer>
       <View style={[styles.section, styles.mainInfo]}>
-        <BlurView style={styles.blur} intensity={170}>
+        <BlurView style={[styles.blur, { minHeight: 450 }]} intensity={170}>
           <View>
             <Text style={[styles.greeting, styles.greetingTop]}>Hi Ivan!</Text>
             <Text style={[styles.greeting, styles.greetingBottom]}>Today your water balance is</Text>
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'space-around',
     alignItems: 'center',
-    gap: 16
+    gap: 20
   },
   greeting: {
     textAlign: 'center',
