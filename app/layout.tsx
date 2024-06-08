@@ -7,7 +7,7 @@ const ibmPlexSerif = IBM_Plex_Serif({
   subsets: ['latin'],
   weight: ['400', '700'],
   variable: '--font-ibm-plex-serif'
-})
+});
 
 
 export const metadata: Metadata = {
@@ -30,4 +30,4 @@ export default function RootLayout({
       </body>
     </html>
   );
-}
+};
