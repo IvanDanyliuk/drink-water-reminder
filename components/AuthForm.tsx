@@ -7,20 +7,13 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z as zod } from 'zod';
 import { Button } from '@/components/ui/button';
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
+import { Form } from '@/components/ui/form';
 import CustomInput from './CustomInput';
 import { authFormSchema } from '@/lib/utils';
 import { Loader2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { signIn, signUp } from '../lib/actions/user.actions';
+
 
 const AuthForm = ({ type }: { type: string }) => {
   const router = useRouter();
@@ -40,22 +33,33 @@ const AuthForm = ({ type }: { type: string }) => {
  
   const onSubmit = async (data: zod.infer<typeof formSchema>) => {
     setIsLoading(true);
-    console.log(data)
     try {
-      // Sign up with Appwrite & create plain link token
-
       if(type === 'sign-up') {
-        // const newUser = await signUp(data);
-        // setUser(newUser);
+        const userData = {
+          firstName: data.firstName!,
+          lastName: data.lastName!,
+          address1: data.address1!,
+          city: data.city!,
+          state: data.state!,
+          postalCode: data.postalCode!,
+          dateOfBirth: data.dateOfBirth!,
+          ssn: data.ssn!,
+          email: data.email,
+          password: data.password
+        };
+        const newUser = await signUp(userData);
+        setUser(newUser);
       }
 
       if(type === 'sign-in') {
-        // const response = await signIn({
-        //   email: data.email,
-        //   password: data.password,
-        // });
+        console.log('SIGN IN')
+        const response = await signIn({
+          email: data.email,
+          password: data.password,
+        });
+        console.log('SIGN IN: RESPONSE', response)
 
-        // if(response) router.push('/');
+        if(response) router.push('/');
       }
     } catch (error) {
       console.log(error)
