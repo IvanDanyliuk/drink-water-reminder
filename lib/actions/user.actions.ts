@@ -1,14 +1,14 @@
 'use server';
 
-import { ID, Query } from "node-appwrite";
-import { createAdminClient, createSessionClient } from "../appwrite";
-import { cookies } from "next/headers";
-import { encryptId, extractCustomerIdFromUrl, parseStringify } from "../utils";
-import { CountryCode, ProcessorTokenCreateRequest, ProcessorTokenCreateRequestProcessorEnum, Products } from "plaid";
+import { ID, Query } from 'node-appwrite';
+import { createAdminClient, createSessionClient } from '../appwrite';
+import { cookies } from 'next/headers';
+import { encryptId, extractCustomerIdFromUrl, parseStringify } from '../utils';
+import { CountryCode, ProcessorTokenCreateRequest, ProcessorTokenCreateRequestProcessorEnum, Products } from 'plaid';
 
 import { plaidClient } from '@/lib/plaid';
-import { revalidatePath } from "next/cache";
-import { addFundingSource, createDwollaCustomer } from "./dwolla.actions";
+import { revalidatePath } from 'next/cache';
+import { addFundingSource, createDwollaCustomer } from './dwolla.actions';
 
 const {
   APPWRITE_DATABASE_ID: DATABASE_ID,
@@ -37,10 +37,10 @@ export const signIn = async ({ email, password }: signInProps) => {
     const { account } = await createAdminClient();
     const session = await account.createEmailPasswordSession(email, password);
 
-    cookies().set("appwrite-session", session.secret, {
-      path: "/",
+    cookies().set('appwrite-session', session.secret, {
+      path: '/',
       httpOnly: true,
-      sameSite: "strict",
+      sameSite: 'strict',
       secure: true,
     });
 
@@ -92,10 +92,10 @@ export const signUp = async ({ password, ...userData }: SignUpParams) => {
 
     const session = await account.createEmailPasswordSession(email, password);
 
-    cookies().set("appwrite-session", session.secret, {
-      path: "/",
+    cookies().set('appwrite-session', session.secret, {
+      path: '/',
       httpOnly: true,
-      sameSite: "strict",
+      sameSite: 'strict',
       secure: true,
     });
 
@@ -206,7 +206,7 @@ export const exchangePublicToken = async ({
     const request: ProcessorTokenCreateRequest = {
       access_token: accessToken,
       account_id: accountData.account_id,
-      processor: "dwolla" as ProcessorTokenCreateRequestProcessorEnum,
+      processor: 'dwolla' as ProcessorTokenCreateRequestProcessorEnum,
     };
 
     const processorTokenResponse = await plaidClient.processorTokenCreate(request);
@@ -233,14 +233,14 @@ export const exchangePublicToken = async ({
     });
 
     // Revalidate the path to reflect the changes
-    revalidatePath("/");
+    revalidatePath('/');
 
     // Return a success message
     return parseStringify({
-      publicTokenExchange: "complete",
+      publicTokenExchange: 'complete',
     });
   } catch (error) {
-    console.error("An error occurred while creating exchanging token:", error);
+    console.error('An error occurred while creating exchanging token:', error);
   }
 }
 

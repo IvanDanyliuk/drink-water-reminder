@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import BankCard from '@/components/BankCard';
 
+
 const RightSidebar = ({ user, transactions, banks }: RightSidebarProps) => {
   return (
     <aside className='right-sidebar'>
@@ -62,7 +63,7 @@ const RightSidebar = ({ user, transactions, banks }: RightSidebarProps) => {
         )}
       </section>
     </aside>
-  )
-}
+  );
+};
 
-export default RightSidebar
+export default RightSidebar;
