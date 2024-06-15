@@ -68,7 +68,7 @@ const TransactionsTable = ({ transactions }: TransactionTableProps) => {
                 {formatDateTime(new Date(t.date)).dateTime}
               </TableCell>
               <TableCell className='pl-2 pr-10 capitalize'>
-                CategoryBadge category={t.channel} />
+                <CategoryBadge category={t.channel} />
               </TableCell>
               <TableCell className='pl-2 pr-10 max-md:hidden'>
                 {t.category}
